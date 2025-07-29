@@ -2,10 +2,10 @@
 
 import { Volume2, VolumeX, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSound } from "./sound-provider";
-import { useTheme } from "./theme-provider";
 import Image from "next/image";
 import { Logo } from "@/assets";
+import { useTheme } from "@/providers/theme-provider";
+import { useSound } from "@/providers/sound-provider";
 
 export function Header() {
   const { isMuted, toggleMute } = useSound();

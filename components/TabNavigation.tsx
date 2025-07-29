@@ -1,8 +1,8 @@
 "use client";
 
-import { Users, FileText, CalculatorIcon } from "lucide-react";
+import { Users, CalculatorIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSound } from "./sound-provider";
+import { useSound } from "@/providers/sound-provider";
 
 interface TabNavigationProps {
   activeTab: "shared" | "custom";

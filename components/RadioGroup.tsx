@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { useSound } from "./sound-provider"
+import { Button } from "@/components/ui/button";
+import { useSound } from "@/providers/sound-provider";
 
 interface RadioOption {
-  value: string
-  label: string
-  badge?: string
-  badgeColor?: "blue" | "red"
+  value: string;
+  label: string;
+  badge?: string;
+  badgeColor?: "blue" | "red";
 }
 
 interface RadioGroupProps {
-  value: string
-  onValueChange: (value: string) => void
-  options: RadioOption[]
+  value: string;
+  onValueChange: (value: string) => void;
+  options: RadioOption[];
 }
 
 export function RadioGroup({ value, onValueChange, options }: RadioGroupProps) {
-  const { playClickSound } = useSound()
+  const { playClickSound } = useSound();
 
   const handleSelect = (optionValue: string) => {
-    playClickSound()
-    onValueChange(optionValue)
-  }
+    playClickSound();
+    onValueChange(optionValue);
+  };
 
   return (
     <div className="space-y-2">
@@ -48,5 +48,5 @@ export function RadioGroup({ value, onValueChange, options }: RadioGroupProps) {
         </Button>
       ))}
     </div>
-  )
+  );
 }

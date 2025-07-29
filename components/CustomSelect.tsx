@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { ChevronDown, Search, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useSound } from "./sound-provider"
+import { useSound } from "@/providers/sound-provider"
 
 interface SelectOption {
   label: string
