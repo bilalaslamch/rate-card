@@ -18,6 +18,7 @@ export function PDFDownloadButton<T extends ISwatTeamPDF | ICustomResourcePDF>({
   className = "",
 }: PDFDownloadButtonProps<T>) {
   const fileName = generateFileName(type, data); // cast needed unless you improve `generateFileName`'s type logic
+  console.log("file name is ", fileName);
   return (
     <PDFDownloadLink
       document={<PDFComponent data={data} />}

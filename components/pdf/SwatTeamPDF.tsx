@@ -145,7 +145,7 @@ export function SwatTeamPDF({ data }: SwatTeamPDFProps) {
     selectedDuration,
   } = data;
 
-  console.log("dewdew", role);
+  console.log("dewdew", data);
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -203,9 +203,11 @@ export function SwatTeamPDF({ data }: SwatTeamPDFProps) {
               </Text>
               <Text style={styles.discountValue}>
                 -AED{" "}
-                {Math.round(
-                  (baseRate * Math.abs(discount)) / 100
-                ).toLocaleString()}
+                {selectedDuration?.value === "1month"
+                  ? 0
+                  : Math.round(
+                      (baseRate * Math.abs(discount)) / 100
+                    ).toLocaleString()}
               </Text>
             </View>
           )}

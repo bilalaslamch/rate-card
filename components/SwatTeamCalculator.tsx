@@ -26,6 +26,7 @@ export function SwatTeamCalculator({ data }: SwatTeamCalculatorProps) {
   const { roles, workloads, durations, calculateDiscountedRate } =
     useSwatTeamRates(data, role);
 
+  console.log(durations);
   const { baseRate, discount, finalRate, selectedWorkload, selectedDuration } =
     calculateDiscountedRate(workload, duration);
 
@@ -39,6 +40,7 @@ export function SwatTeamCalculator({ data }: SwatTeamCalculatorProps) {
     selectedWorkload,
     selectedDuration,
   };
+  console.log("pdf data ", pdfData);
 
   const handleSendEmail = async (email: string, name: string) => {
     setEmailLoading(true);
@@ -121,7 +123,12 @@ export function SwatTeamCalculator({ data }: SwatTeamCalculatorProps) {
               options={durations.map((d) => ({
                 value: d.value,
                 label: d.label,
-                badge: d.discount !== 0 ? `${d.discount}%` : undefined,
+                badge:
+                  d.value === "1month"
+                    ? undefined
+                    : d.discount !== 0
+                    ? `${d.discount}%`
+                    : undefined,
                 badgeColor: d.discount < 0 ? "red" : undefined,
               }))}
             />

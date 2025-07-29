@@ -87,7 +87,13 @@ export function renderSwatTeamEmail(data: ISwatTeamPDF): string {
             }</td>
             <td style="color: #6b7280;">Duration Discount</td>
             <td style="font-weight: bold; color: #dc2626;">${
-              data.discount ? `${data.discount}%` : "0%"
+              data.discount
+                ? `${
+                    data.selectedDuration?.value === "1month"
+                      ? 0
+                      : data.discount
+                  }%`
+                : "0%"
             }</td>
           </tr>
         </table>

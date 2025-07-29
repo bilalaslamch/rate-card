@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import { Duration, RoleRate, Workload } from "@/common";
 
-
-
 const workloads: Workload[] = [
   { value: "2days", label: "2 days / week", percentage: 40 },
   { value: "3days", label: "3 days / week", percentage: 60 },
@@ -11,7 +9,7 @@ const workloads: Workload[] = [
 ];
 
 const durations: Duration[] = [
-  { value: "1month", label: "1 month", discount: 0 },
+  { value: "1month", label: "1 month", discount: -1 },
   { value: "2months", label: "2 months", discount: -5 },
   { value: "3months", label: "3 months", discount: -10 },
 ];
@@ -39,7 +37,9 @@ export function useSwatTeamRates(
     const discount = selectedDuration?.discount || 0;
 
     const baseRate = Math.round((baseIntermediate * percentage) / 100);
-    const finalRate = Math.round(baseRate * (1 + discount / 100));
+    let finalRate = 0;
+    if (durationValue === "1month") finalRate = Math.round(baseRate);
+    else finalRate = Math.round(baseRate * (1 + discount / 100));
 
     return {
       baseRate,
