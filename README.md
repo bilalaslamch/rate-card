@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hub71 Rate Card Calculator
 
-## Getting Started
+## Overview
+A professional rate card calculator for Hub71, supporting both Custom Resource and SWAT Team calculations. Features PDF and email export with company branding, business logic encapsulated in custom hooks, and seamless API integration.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technical Architecture
+- **Frontend:** Next.js (React), custom hooks for data, PDF and email UI components.
+- **Backend:** Next.js API routes for email (SendGrid).
+- **Database:** Supabase for rate data.
+- **PDF/Email:** React-PDF for downloads, HTML templates for email.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Send Email Endpoint
+- **POST** `/api/email`
+- **Payload:**
+  ```json
+  {
+    "email": "recipient@example.com",
+    "name": "Sender Name",
+    "type": "custom" | "swat",
+    "data": { ...calculatorData }
+  }
+  ```
+- **Response:**
+  - `{ success: true, message: "Email sent successfully!" }`
+  - `{ success: false, message: "Error message" }`
 
-## Learn More
+### Supabase Data Fetching
+- **CustomResourceRates:** Fetched via `useCustomResourceRates` hook.
+- **SWATTeamRates:** Fetched and calculated via `useSwatTeamRates` hook.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment Guide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Environment variables:**
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `EMAIL_FROM` (verified sender for SendGrid)
+   - `SENDGRID_API_KEY`
+3. **Run locally:**
+   ```bash
+   npm run dev
+   ```
+4. **Deploy:**
+   - Standard Next.js deployment (Vercel, Netlify, etc.)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Business Logic Explanation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Custom Resource Calculator
+- Fetches all rates from Supabase.
+- User selects region, role, and seniority.
+- Displays the corresponding rate.
+
+### SWAT Team Calculator
+- User selects role, workload (percentage), and duration.
+- Base rate is calculated from the intermediate rate for the role.
+- Workload percentage is applied.
+- Duration discount is applied (-5% for 2 months, -10% for 3+ months).
+- Final rate is displayed and included in PDF/email.
+
+---
+
+## Features
+- Professional PDF and email export with branding
+- Custom hooks for business logic
+- Toast notifications for user feedback
+- Responsive, modern UI
+
+---
+
+## License
+MIT
